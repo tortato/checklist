@@ -19,7 +19,7 @@ test('allows a user to create a task with valid data', function () {
         'description' => 'Task detail description',
         'priority' => TaskPriority::High->value,
         'status' => TaskStatus::Pending->value,
-        'due_date' => Carbon::now()->addDays(30),
+        'due_date' => Carbon::now()->addDays(30)->format('Y-m-d H:i:s'),
     ];
 
     $response = $this->postJson('/api/tasks', $data);
@@ -32,7 +32,7 @@ test('allows a user to create a task with valid data', function () {
 
     $this->assertDatabaseHas('tasks', [
         'title' => 'New task',
-        'user_id' => $this->user_id
+        'user_id' => $this->user->id
     ]);
 });
 
